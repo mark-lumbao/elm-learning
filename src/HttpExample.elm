@@ -5,6 +5,7 @@ module HttpExample exposing (..)
 import Browser
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style)
+import Html.Lazy exposing (lazy)
 import Http exposing (Error)
 
 
@@ -101,5 +102,5 @@ view model =
             , style "width" "100%"
             , style "height" "100%"
             ]
-            [ content model ]
+            [ lazy content model ]
         ]

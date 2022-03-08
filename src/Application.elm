@@ -4,6 +4,7 @@ import Browser
 import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (href, style)
+import Html.Lazy exposing (lazy, lazy2)
 import Url
 
 
@@ -79,10 +80,10 @@ view model =
     { title = "M-A-L"
     , body =
         [ div [ style "padding" "2rem" ]
-            [ link "/home" "Home"
+            [ lazy2 link "/home" "Home" -- only re-render when values changes
             , brk
-            , link "/profile" "Profile"
-            , str model.url.path
+            , lazy2 link "/profile" "Profile"
+            , lazy str model.url.path
             , brk
             , brk
             ]

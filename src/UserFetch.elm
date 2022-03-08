@@ -3,6 +3,7 @@ module UserFetch exposing (main)
 import Browser
 import Html exposing (Html, br, div, h1, li, text, ul)
 import Html.Attributes exposing (style)
+import Html.Keyed as Keyed
 import Http
 import Json.Decode exposing (Decoder, field, list, map3, map4, string)
 import List exposing (map)
@@ -131,6 +132,15 @@ update msg _ =
 -- View
 
 
+viewUser : User -> ( String, Html Msg )
+viewUser user =
+    let
+        name =
+            user.name.first ++ " " ++ user.name.last
+    in
+    ( name, li [] [ text name ] )
+
+
 view : Model -> Html Msg
 view model =
     div []
@@ -144,5 +154,5 @@ view model =
                 text "Failed to load User"
 
             Success users ->
-                ul [] (map (\u -> li [] [ text u.name.first ]) users)
+                Keyed.node "ul" [] (map viewUser users)
         ]
